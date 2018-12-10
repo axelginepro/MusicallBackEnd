@@ -94,6 +94,30 @@ router.get('/listEvent', (req, res, next) => {
   });
 });
 
-
+router.post('/traceme', function (req, res) {
+  console.log(req.body.userId, req.body.lat, req.body.lon);
+  db.users.findOneAndUpdate({
+    _id: req.body.userId
+  }, {
+    $push: {
+      tracelog: {
+        lat: req.body.lat,
+        lon: req.body.lon
+      }
+    }
+  }, {
+    new: true
+  }, (error, user) => {
+    if (error || !user) {
+      console.error(error ? error : 'user not found');
+    } else {
+      console.log(user);
+      res.json({
+        result: true,
+        tracelog: user.tracelog
+      });
+    };
+  });
+});
 
 module.exports = router;
