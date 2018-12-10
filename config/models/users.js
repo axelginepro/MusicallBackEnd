@@ -13,7 +13,21 @@ const userSchema = mongoose.Schema({
         style1: String,
         style2: String,
         style3: String,
-    }]
+    }],
+    like: {
+            image: String,
+            name: String,
+            artist: String,
+            style: String,
+            eventDate: String,
+            description: String,
+            adresse: String,
+            price: Number,
+            coord: {
+                latitude: Number,
+                longitude: Number,
+            }
+        }
 });
 
 
