@@ -55,9 +55,6 @@ router.post('/signup', function(req, res) {
   }
 });
 
-router.get('/markerEvent', function (req, res, next) {
-  res.json({result : true});;
-});
 
 router.post('/addEvent', function (req, res, next) {
   console.log(req.body);
