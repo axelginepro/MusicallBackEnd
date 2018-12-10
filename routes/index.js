@@ -120,4 +120,29 @@ router.post('/traceme', function (req, res) {
   });
 });
 
+router.post('/preference', function (req, res) {
+  console.log(req.body)
+  db.users.findOneAndUpdate(
+    {
+      email: req.body.email
+    },
+    {
+      preference: [
+    req.body.preference 
+  ]
+}, {
+  new: true
+}, (error, user) => {
+  if (error || !user) {
+    console.error(error ? error : 'user not found');
+  } else {
+    console.log(user);
+    res.json({
+      result: true,
+      user
+    });
+  };
+});
+});
+
 module.exports = router;

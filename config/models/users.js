@@ -9,11 +9,7 @@ const userSchema = mongoose.Schema({
     email: String,
     adresse: String,
     password: String,
-    preference: [{
-        style1: String,
-        style2: String,
-        style3: String,
-    }],
+    preference: [],
     like: {
             image: String,
             name: String,
