@@ -63,7 +63,7 @@ router.post('/addEvent', function (req, res, next) {
     name: req.body.name,
     artist: req.body.artist,
     style: req.body.style,
-    eventDate: req.body.event_date,
+    eventDate: req.body.eventDate,
     description: req.body.description,
     adresse: req.body.adresse,
     price: req.body.price,
