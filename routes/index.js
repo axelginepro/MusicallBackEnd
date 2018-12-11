@@ -78,18 +78,11 @@ router.post('/addEvent', function (req, res, next) {
 });
 
 router.get('/listEvent', (req, res, next) => {
-  db.event.find({
-    image: req.query.image,
-    artist: req.query.artist,
-    style: req.query.style,
-    event_date: req.query.event_date,
-    lieu: req.query.lieu,
-    price: req.query.price
-  }, (error, event) => {
+  db.event.find((error, event) => {
     if (!event) {
       res.json({result: false, isEventExist: false});
     } else {
-      res.json({result: true, isEventExist: true});
+      res.json({result: true, isEventExist: true, event});
     }
   });
 });

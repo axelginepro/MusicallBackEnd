@@ -9,6 +9,10 @@ const eventSchema = mongoose.Schema({
     description: String,
     adresse: String,
     price: Number,
+    coord: {
+        latitude: Number,
+        longitude: Number,
+    }
 });
 
 const EventModel = mongoose.model('events', eventSchema);
