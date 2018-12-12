@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/signin', (req, res, next) => {
   console.log('signin');
-  UserModel.findOne({
+  db.users.findOne({
     email: req.query.email,
     password: req.query.password
   }, (error, user) => {
