@@ -8,7 +8,7 @@ const eventSchema = mongoose.Schema({
     eventDate: String,
     description: String,
     adresse: String,
-    price: Number,
+    price: String,
     coord: {
         latitude: Number,
         longitude: Number,

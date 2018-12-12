@@ -67,6 +67,10 @@ router.post('/addEvent', function (req, res, next) {
     description: req.body.description,
     adresse: req.body.adresse,
     price: req.body.price,
+    coord: {
+      latitude: req.body.coord.latitude,
+      longitude: req.body.coord.longitude
+    }
   });
   newEvent.save((error, event) => {
     if (error) {
