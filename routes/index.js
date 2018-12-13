@@ -18,7 +18,6 @@ mongoose.connect(config.url,
   });
 
 function hash(password) {
-
 for (var i = 0; i < password.length; i++) {
   password = crypto.createHash('sha256').update(`${password}42`).digest('base64');
   }
@@ -51,7 +50,7 @@ router.post('/signup', function(req, res) {
     var newUser = new db.users({
       pseudo: req.body.pseudo,
       email: req.body.email,
-      password: hash(req.query.password)
+      password: hash(req.body.password)
     });
     newUser.save(function(error, user) {
       res.json({result: true, user});
@@ -75,8 +74,8 @@ router.post('/addEvent', function (req, res, next) {
     adresse: req.body.adresse,
     price: req.body.price,
     coord: {
-      latitude: req.body.coord.latitude,
-      longitude: req.body.coord.longitude
+      latitude: req.body.latitude,
+      longitude: req.body.longitude
     }
   });
   newEvent.save((error, event) => {
