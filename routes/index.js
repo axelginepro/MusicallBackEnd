@@ -46,7 +46,7 @@ router.get('/signin', (req, res, next) => {
 
 router.post('/signup', function(req, res) {
   console.log(req.body)
-  if (req.body.pseudo !== '' && req.body.email !== '' && req.body.password !== '') {
+  if (req.body.pseudo !== '' && req.body.email !== '' && hash(req.body.password) !== '') {
     var newUser = new db.users({
       pseudo: req.body.pseudo,
       email: req.body.email,
