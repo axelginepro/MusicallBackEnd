@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var request = require('request');
+var crypto = require("crypto");
 
 const db = require('../config/model');
 const config = require('../config/config')
@@ -16,7 +17,13 @@ mongoose.connect(config.url,
     }
   });
 
+function hash(password) {
 
+for (var i = 0; i < password.length; i++) {
+  password = crypto.createHash('sha256').update(`${password}42`).digest('base64');
+  }
+  return password;
+};
 
 
 /* GET home page. */
@@ -28,7 +35,7 @@ router.get('/signin', (req, res, next) => {
   console.log('signin');
   db.users.findOne({
     email: req.query.email,
-    password: req.query.password
+    password: hash(req.query.password)
   }, (error, user) => {
     if (!user) {
       res.json({result: false, isUserExist: false});
@@ -44,7 +51,7 @@ router.post('/signup', function(req, res) {
     var newUser = new db.users({
       pseudo: req.body.pseudo,
       email: req.body.email,
-      password: req.body.password
+      password: hash(req.query.password)
     });
     newUser.save(function(error, user) {
       res.json({result: true, user});
