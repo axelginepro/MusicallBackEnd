@@ -49,7 +49,7 @@ router.get('/signin', (req, res, next) => {
 // route SignUp avec encryptage , vérifie si un loger est deja crée
 router.post('/signup', function(req, res) {
   console.log(req.body)
-  if (req.body.pseudo !== '' && req.body.email !== '' && password !== '') {
+  if (req.body.pseudo !== '' && req.body.email !== '') {
     var newUser = new db.users({
       pseudo: req.body.pseudo,
       email: req.body.email,
