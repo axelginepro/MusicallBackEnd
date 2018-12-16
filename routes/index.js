@@ -7,7 +7,7 @@ var crypto = require("crypto");
 const db = require('../config/model');
 const config = require('../config/config')
 
-
+// connection mongoose sur mlab
 mongoose.connect(config.url,
   config.options,  error => {
     if (error) {
@@ -17,6 +17,7 @@ mongoose.connect(config.url,
     }
   });
 
+  // encrypage du password
 function hash(password) {
 for (var i = 0; i < password.length; i++) {
   password = crypto.createHash('sha256').update(`${password}42`).digest('base64');
@@ -30,6 +31,7 @@ router.get('/', function(req, res, next) {
   res.json({result : true});
 });
 
+// route SignIn avec encryptage , 
 router.get('/signin', (req, res, next) => {
   console.log('signin');
   db.users.findOne({
@@ -44,9 +46,10 @@ router.get('/signin', (req, res, next) => {
   });
 });
 
+// route SignUp avec encryptage , vérifie si un loger est deja crée
 router.post('/signup', function(req, res) {
   console.log(req.body)
-  if (req.body.pseudo !== '' && req.body.email !== '' && hash(req.body.password) !== '') {
+  if (req.body.pseudo !== '' && req.body.email !== '' && password !== '') {
     var newUser = new db.users({
       pseudo: req.body.pseudo,
       email: req.body.email,
@@ -61,7 +64,7 @@ router.post('/signup', function(req, res) {
   }
 });
 
-
+// ajout d'un événement et enregistre ses coordonnées GoogleMap
 router.post('/addEvent', function (req, res, next) {
   console.log(req.body);
   var newEvent = new db.event({
@@ -87,6 +90,7 @@ router.post('/addEvent', function (req, res, next) {
   });
 });
 
+//  affichage de tout les events de la bdd
 router.get('/listEvent', (req, res, next) => {
   db.event.find((error, event) => {
     if (!event) {
@@ -123,6 +127,7 @@ router.post('/traceme', function (req, res) {
   });
 });
 
+// enregistre les preferences du user 
 router.post('/preference', function (req, res) {
   console.log(req.body)
   db.users.findOneAndUpdate(
