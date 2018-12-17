@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
     adresse: String,
     password: String,
     preference: [],
-    like: {
+    like: [{
             image: String,
             name: String,
             artist: String,
@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
                 latitude: Number,
                 longitude: Number,
             }
-        }
+        }]
 });
 
 

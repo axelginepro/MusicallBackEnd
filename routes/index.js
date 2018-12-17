@@ -41,7 +41,7 @@ router.get('/signin', (req, res, next) => {
     if (!user) {
       res.json({result: false, isUserExist: false});
     } else {
-      res.json({result: true, isUserExist: true});
+      res.json({result: true, isUserExist: true, user});
     }
   });
 });
@@ -101,31 +101,31 @@ router.get('/listEvent', (req, res, next) => {
   });
 });
 
-router.post('/traceme', function (req, res) {
-  console.log(req.body.userId, req.body.lat, req.body.lon);
-  db.users.findOneAndUpdate({
-    _id: req.body.userId
-  }, {
-    $push: {
-      tracelog: {
-        lat: req.body.lat,
-        lon: req.body.lon
-      }
-    }
-  }, {
-    new: true
-  }, (error, user) => {
-    if (error || !user) {
-      console.error(error ? error : 'user not found');
-    } else {
-      console.log(user);
-      res.json({
-        result: true,
-        tracelog: user.tracelog
-      });
-    };
-  });
-});
+// router.post('/traceme', function (req, res) {
+//   console.log(req.body.userId, req.body.lat, req.body.lon);
+//   db.users.findOneAndUpdate({
+//     _id: req.body.userId
+//   }, {
+//     $push: {
+//       tracelog: {
+//         lat: req.body.lat,
+//         lon: req.body.lon
+//       }
+//     }
+//   }, {
+//     new: true
+//   }, (error, user) => {
+//     if (error || !user) {
+//       console.error(error ? error : 'user not found');
+//     } else {
+//       console.log(user);
+//       res.json({
+//         result: true,
+//         tracelog: user.tracelog
+//       });
+//     };
+//   });
+// });
 
 // enregistre les preferences du user 
 router.post('/preference', function (req, res) {
