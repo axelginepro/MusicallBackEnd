@@ -17,7 +17,7 @@ mongoose.connect(config.url,
     }
   });
 
-  // encrypage du password
+  // encryptage du password
 function hash(password) {
 for (var i = 0; i < password.length; i++) {
   password = crypto.createHash('sha256').update(`${password}42`).digest('base64');
@@ -27,7 +27,7 @@ for (var i = 0; i < password.length; i++) {
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.json({result : true});
 });
 
@@ -47,7 +47,7 @@ router.get('/signin', (req, res, next) => {
 });
 
 // route SignUp avec encryptage , vérifie si un loger est deja crée
-router.post('/signup', function(req, res) {
+router.post('/signup', (req, res) => {
   console.log(req.body)
   if (req.body.pseudo !== '' && req.body.email !== '') {
     var newUser = new db.users({
@@ -55,7 +55,7 @@ router.post('/signup', function(req, res) {
       email: req.body.email,
       password: hash(req.body.password)
     });
-    newUser.save(function(error, user) {
+    newUser.save((error, user) => {
       res.json({result: true, user});
     });
   } else {
@@ -65,7 +65,7 @@ router.post('/signup', function(req, res) {
 });
 
 // ajout d'un événement et enregistre ses coordonnées GoogleMap
-router.post('/addEvent', function (req, res, next) {
+router.post('/addEvent',  (req, res, next) => {
   console.log(req.body);
   var newEvent = new db.event({
     image: req.body.image,
@@ -74,6 +74,7 @@ router.post('/addEvent', function (req, res, next) {
     style: req.body.style,
     eventDate: req.body.eventDate,
     description: req.body.description,
+    horaire: req.body.horaire,
     adresse: req.body.adresse,
     price: req.body.price,
     coord: {
@@ -101,34 +102,8 @@ router.get('/listEvent', (req, res, next) => {
   });
 });
 
-// router.post('/traceme', function (req, res) {
-//   console.log(req.body.userId, req.body.lat, req.body.lon);
-//   db.users.findOneAndUpdate({
-//     _id: req.body.userId
-//   }, {
-//     $push: {
-//       tracelog: {
-//         lat: req.body.lat,
-//         lon: req.body.lon
-//       }
-//     }
-//   }, {
-//     new: true
-//   }, (error, user) => {
-//     if (error || !user) {
-//       console.error(error ? error : 'user not found');
-//     } else {
-//       console.log(user);
-//       res.json({
-//         result: true,
-//         tracelog: user.tracelog
-//       });
-//     };
-//   });
-// });
-
 // enregistre les preferences du user 
-router.post('/preference', function (req, res) {
+router.post('/preference',  (req, res) => {
   console.log(req.body)
   db.users.findOneAndUpdate(
     {
